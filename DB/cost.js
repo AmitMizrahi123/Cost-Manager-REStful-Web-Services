@@ -4,8 +4,8 @@ mongoose.connect(process.env.MONGODB);
 var Schema = mongoose.Schema;
 
 const costSchema = new Schema({
-  description: string,
-  sum: int
+  description: String,
+  sum: String
 });
 
 costSchema.plugin(passportLocalMongoose);
