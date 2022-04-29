@@ -1,13 +1,18 @@
-var express = require('express');
-var app = express();
+require('./db/mongoose');
+const express = require('express');
+const bodyParser = require('body-parser');
+const userRouter = require('./routers/user');
+const costRouter = require('./routers/cost');
 
-app.get('/', function (req, res) {
-   res.send('Hello World');
-})
+const app = express();
+const port = 3000;
 
-var host = "127.0.0.1";
-var port = "8080";
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.json());
+app.use(userRouter);
+app.use(costRouter);
 
-var server = app.listen(8080, function () {
-   console.log("Example app listening at http://%s:%s", host, port)
-})
+app.listen(port, () => {
+    console.log('App is running on port 3000!');
+});
