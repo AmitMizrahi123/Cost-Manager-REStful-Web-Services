@@ -1,19 +1,13 @@
-const express = require('express');
-const router = new express.Router();
-const User = require('../model/user');
+const express = require("express");
+const router = express.Router();
+const { register, signin, allUsers, deleteAllUsers } = require("../controllers/userController");
 
-router.get('/', (req, res) => {
-    res.send("Hello World");
-});
+router.post("/register", register);
 
-router.post('/', (req, res) => {
-    const user = new User(req.body);
-    
-    user.save().then((user) => {
-        res.status(201).send(user);
-    }).catch((error) => {
-        res.status(400).send(error);
-    }) 
-});
+router.post("/signin", signin);
+
+router.get("/allUsers", allUsers)
+
+router.post("/deleteAllUsers", deleteAllUsers)
 
 module.exports = router;
