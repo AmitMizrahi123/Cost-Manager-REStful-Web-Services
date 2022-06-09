@@ -57,33 +57,7 @@ const signin = async (req, res) => {
   }
 };
 
-const allUsers = async (req, res) => {
-  try {
-    const allUsers = await userService.getAllUsers();
-
-    return res.json(allUsers);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
-}
-
-const deleteAllUsers = async (req, res) => {
-  try {
-    const allUsers = await userService.getAllUsers();
-    
-    await allUsers.forEach(user => {
-      userService.deleteUser(user.id);
-    });
-
-    return res.json(allUsers);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
-}
-
 module.exports = {
     register,
     signin,
-    allUsers,
-    deleteAllUsers
 };

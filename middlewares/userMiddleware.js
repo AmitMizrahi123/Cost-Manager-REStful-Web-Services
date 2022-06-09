@@ -10,7 +10,10 @@ const userAuthMiddleware = async (req, res, next) => {
     const userId = decoded.data._id;
 
     const user = await userService.findUserById(userId);
-    if (!user) throw new Error("User Not Exists");
+    if (!user) 
+    {
+      throw new Error("User Not Exists");      
+    }
 
     req.user = user;
     next();

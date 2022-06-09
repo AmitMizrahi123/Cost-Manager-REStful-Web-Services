@@ -8,17 +8,16 @@ const userRouter = require('./routers/user');
 const userMiddleware = require("./middlewares/userMiddleware");
 const port = 3000;
 
-// Connect mongo db
-mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Connected to MongoDB!");
-  })
-  .catch((err) => {
-    console.error(`Error connecting to the database. \n${err}`);
-  });
+// Connect mongo
+mongoose.connect(process.env.MONGODB_URI, { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true})
+    .then(() => {
+        console.log("Connected to MongoDB!");
+    })
+    .catch((err) => {
+        console.error(`Error connecting to the database. \n${err}`);
+    });
 
 // App settings
 app.use(bodyParser.json());
