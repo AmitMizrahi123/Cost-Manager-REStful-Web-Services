@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require("cors");
 const app = express();
 const userRouter = require('./routers/user');
+const userAverageRouter = require('./routers/userAverage');
 const userMiddleware = require("./middlewares/userMiddleware");
 const port = 3000;
 
@@ -26,6 +27,7 @@ app.use(cors());
 
 // Routers
 app.use("/api/user", userRouter);
+app.use("/api/user", userAverageRouter);
 
 // Middleware
 app.use(userMiddleware);

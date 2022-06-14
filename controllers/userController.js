@@ -1,11 +1,11 @@
 const userService = require("../services/userService");
-const validationService = require("../services/validationService");
+const validationUserService = require("../services/validationUserService");
 const jwt = require("jsonwebtoken");
 
 const register = async (req, res) => {
   try {
     const data = req.body;
-    const error = validationService.isCreateValid(data);
+    const error = validationUserService.isCreateValid(data);
     if (error) {
       throw new Error(error.message);
     }
