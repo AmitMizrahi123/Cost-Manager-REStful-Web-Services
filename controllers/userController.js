@@ -6,6 +6,7 @@ const register = async (req, res) => {
   try {
     const data = req.body;
     const error = validationUserService.isCreateValid(data);
+
     if (error) {
       throw new Error(error.message);
     }
@@ -17,7 +18,6 @@ const register = async (req, res) => {
     
     const newUser = await userService.register(data);
 
-    // generate token
     const token = jwt.sign(
       {
         data: { _id: newUser._id },
@@ -36,20 +36,16 @@ const signin = async (req, res) => {
   try {
     const data = req.body;
     const user = await userService.signin(data);
+
     if (!user) {
       throw new Error("User Not Exists");
     } 
 
-    let token = jwt.sign(
-      {
-        data: { _id: user._id },
-      },
-      process.env.SECRET_JWT_KEY,
-      { expiresIn: "7d" }
-    );
+    const token = jwt.sign({ data: { _id: user._id } }, 'secret', {expiresIn : '24h'}, process.env.SECRET_JWT_KEY);
 
     const { password, ...restOfUserData } = user;
     restOfUserData.token = token;
+    res.cookie('auth', restOfUserData);
 
     return res.json(restOfUserData);
   } catch (err) {
